@@ -88,9 +88,9 @@ export default function ListingCard({
         <div className="mt-6 border-t pt-4">
           <Link
               to={`/profile/${listing.ownerId}`}
-              className="font-semibold text-lg hover:text-amber-700"
+              className="font-semibold hover:text-amber-700"
             >
-              <Userplus /> {listing.ownerName || "Unknown Weaver"}
+               👤 {listing.ownerName}
             </Link>
 
           <p className="text-sm text-gray-500">
