@@ -123,7 +123,7 @@ export default function EditProfile() {
           />
 
           <input
-            name="photoURL"
+           name="photoURL"
             value={form.photoURL}
             onChange={handleChange}
             placeholder="Profile Image URL"

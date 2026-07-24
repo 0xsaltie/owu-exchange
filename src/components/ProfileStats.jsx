@@ -2,6 +2,18 @@ export default function ProfileStats({
   profile,
   listings,
 }) {
+  const exchangeListings = listings.filter(
+    (listing) => listing.listingType === "exchange"
+  ).length;
+
+  const saleListings = listings.filter(
+    (listing) => listing.listingType === "sale"
+  ).length;
+
+  const availableListings = listings.filter(
+    (listing) => listing.status === "available"
+  ).length;
+
   const stats = [
     {
       title: "Listings",
@@ -10,10 +22,28 @@ export default function ProfileStats({
       color: "bg-amber-100 text-amber-700",
     },
     {
+      title: "Exchange Threads",
+      value: exchangeListings,
+      icon: "🔄",
+      color: "bg-blue-100 text-blue-700",
+    },
+    {
+      title: "For Sale",
+      value: saleListings,
+      icon: "💰",
+      color: "bg-green-100 text-green-700",
+    },
+    {
+      title: "Available",
+      value: availableListings,
+      icon: "✅",
+      color: "bg-emerald-100 text-emerald-700",
+    },
+    {
       title: "Completed Exchanges",
       value: profile.completedExchanges || 0,
       icon: "🤝",
-      color: "bg-green-100 text-green-700",
+      color: "bg-purple-100 text-purple-700",
     },
     {
       title: "Reviews",
@@ -23,18 +53,29 @@ export default function ProfileStats({
     },
     {
       title: "Rating",
-      value: profile.rating || 0,
+      value:
+        profile.rating && profile.rating > 0
+          ? `${profile.rating.toFixed(1)} ★`
+          : "N/A",
       icon: "🏆",
-      color: "bg-blue-100 text-blue-700",
+      color: "bg-orange-100 text-orange-700",
+    },
+    {
+      title: "Joined",
+      value: profile.createdAt?.toDate
+        ? profile.createdAt.toDate().getFullYear()
+        : "2026",
+      icon: "📅",
+      color: "bg-gray-100 text-gray-700",
     },
   ];
 
   return (
-    <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
       {stats.map((stat) => (
         <div
           key={stat.title}
-          className="bg-white rounded-2xl shadow-sm p-6 text-center hover:shadow-md transition"
+          className="bg-white rounded-2xl shadow-sm p-6 text-center hover:shadow-lg transition duration-300"
         >
           <div
             className={`w-14 h-14 mx-auto rounded-full flex items-center justify-center text-2xl ${stat.color}`}
@@ -46,7 +87,7 @@ export default function ProfileStats({
             {stat.value}
           </h3>
 
-          <p className="mt-2 text-gray-500">
+          <p className="mt-2 text-gray-500 text-sm">
             {stat.title}
           </p>
         </div>

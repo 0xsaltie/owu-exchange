@@ -4,12 +4,12 @@ import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCS2YFIPn_8I_vd_yaS8_hXKV6rYX3atiE",
-  authDomain: "owuexchange-1c82d.firebaseapp.com",
-  projectId: "owuexchange-1c82d",
-  storageBucket: "owuexchange-1c82d.firebasestorage.app",
-  messagingSenderId: "335258305483",
-  appId: "1:335258305483:web:ae8ee70bddefe770866c4e",
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
 const app = initializeApp(firebaseConfig);
