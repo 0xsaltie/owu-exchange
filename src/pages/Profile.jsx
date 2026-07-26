@@ -15,6 +15,8 @@ import { db } from "../services/firebase";
 import ProfileHeader from "../components/ProfileHeader";
 import ProfileStats from "../components/ProfileStats";
 import ProfileListings from "../components/ProfileListings";
+import ReviewsList from "../components/ReviewsList";
+import ReviewForm from "../components/ReviewForm";
 
 export default function Profile() {
   const { id } = useParams();
@@ -173,6 +175,17 @@ export default function Profile() {
 
         </div>
 
+        {/* Reviews */}
+          <div className="mt-12">
+            <ReviewsList sellerId={profile.id} />
+          </div>
+
+          <div className="mt-10">
+            <ReviewForm
+              sellerId={profile.id}
+              listingId=""
+            />
+          </div>
       </div>
     </div>
   );

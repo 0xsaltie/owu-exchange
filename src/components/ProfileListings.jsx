@@ -59,12 +59,11 @@ export default function ProfileListings({
         <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
           {listings.map((listing) => (
             <div key={listing.id}>
-              <Link to={`/listing/${listing.id}`}>
-                <ListingCard
-                  listing={listing}
-                  user={currentUser}
-                />
-              </Link>
+              <ListingCard
+                listing={listing}
+                user={currentUser}
+                handleRequestExchange={handleRequestExchange}
+              />  
             </div>
           ))}
         </div>

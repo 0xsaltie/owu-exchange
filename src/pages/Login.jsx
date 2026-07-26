@@ -34,27 +34,32 @@ export default function Login() {
       );
 
       navigate("/dashboard");
-    } catch (error) {
-      console.error(error);
+          } catch (error) {
+        console.error("Firebase Login Error:", error);
 
-      switch (error.code) {
-        case "auth/invalid-credential":
-          alert("Invalid email or password");
-          break;
+        if (error.code === "auth/network-request-failed") {
+          alert("Network error. Please check your internet connection and try again.");
+          return;
+        }
 
-        case "auth/user-not-found":
-          alert("Account not found");
-          break;
+        switch (error.code) {
+          case "auth/invalid-credential":
+            alert("Invalid email or password");
+            break;
 
-        case "auth/wrong-password":
-          alert("Incorrect password");
-          break;
+          case "auth/user-not-found":
+            alert("Account not found");
+            break;
 
-        default:
-          alert(error.message);
-      }
-    } finally {
-      setLoading(false);
+          case "auth/wrong-password":
+            alert("Incorrect password");
+            break;
+
+          default:
+            alert(error.message);
+        }
+      }  finally {
+            setLoading(false);
     }
   };
 

@@ -6,25 +6,27 @@ export default function ListingCard({
   handleRequestExchange,
 }) {
   return (
-    <Link to={`/listingdetails/${listing.id}`}>
-      <div className="bg-white rounded-2xl shadow-sm hover:shadow-lg transition overflow-hidden">
-        {/* Image */}
+    <div className="bg-white rounded-2xl shadow-sm hover:shadow-lg transition overflow-hidden">
+
+      {/* Image */}
+      <Link to={`/listingdetails/${listing.id}`}>
         <div className="h-48 overflow-hidden">
           {listing.coverImage ? (
             <img
-                src={listing.coverImage}
-                alt={listing.threadType}
-                className="w-full h-full object-cover"
-              />
-            ) : (
-              <div className="h-full bg-gradient-to-br from-amber-100 to-orange-200 flex items-center justify-center">
-                <span className="text-6xl">🧵</span>
-              </div>
-            )}
-          </div>
+              src={listing.coverImage}
+              alt={listing.threadType}
+              className="w-full h-full object-cover hover:scale-105 transition duration-300"
+            />
+          ) : (
+            <div className="h-full bg-gradient-to-br from-amber-100 to-orange-200 flex items-center justify-center">
+              <span className="text-6xl">🧵</span>
+            </div>
+          )}
+        </div>
+      </Link>
 
-      {/* Content */}
       <div className="p-6">
+
         {/* Listing Type */}
         <div className="mb-4">
           {listing.listingType === "exchange" ? (
@@ -38,10 +40,15 @@ export default function ListingCard({
           )}
         </div>
 
-        {/* Thread */}
-        <h2 className="text-xl font-bold">
-          {listing.threadType}
-        </h2>
+        {/* Thread Title */}
+        <Link
+          to={`/listingdetails/${listing.id}`}
+          className="hover:text-amber-700"
+        >
+          <h2 className="text-xl font-bold">
+            {listing.threadType}
+          </h2>
+        </Link>
 
         {/* Details */}
         <div className="mt-4 space-y-2 text-gray-600">
@@ -63,8 +70,8 @@ export default function ListingCard({
 
           {listing.listingType === "sale" && (
             <p>
-              <strong>Price:</strong>{" "}
-              ₦{listing.price?.toLocaleString()}
+              <strong>Price:</strong> ₦
+              {listing.price?.toLocaleString()}
             </p>
           )}
         </div>
@@ -77,6 +84,8 @@ export default function ListingCard({
                 ? "bg-green-100 text-green-700"
                 : listing.status === "sold"
                 ? "bg-red-100 text-red-700"
+                : listing.status === "exchanged"
+                ? "bg-purple-100 text-purple-700"
                 : "bg-gray-100 text-gray-700"
             }`}
           >
@@ -87,11 +96,11 @@ export default function ListingCard({
         {/* Owner */}
         <div className="mt-6 border-t pt-4">
           <Link
-              to={`/profile/${listing.ownerId}`}
-              className="font-semibold hover:text-amber-700"
-            >
-               👤 {listing.ownerName}
-            </Link>
+            to={`/profile/${listing.ownerId}`}
+            className="font-semibold hover:text-amber-700"
+          >
+            👤 {listing.ownerName}
+          </Link>
 
           <p className="text-sm text-gray-500">
             📍 {listing.ownerLocation || "Iseyin"}
@@ -100,6 +109,7 @@ export default function ListingCard({
 
         {/* Button */}
         <button
+          type="button"
           onClick={() => handleRequestExchange(listing)}
           disabled={listing.ownerId === user?.uid}
           className={`w-full mt-5 py-3 rounded-lg text-white transition ${
@@ -114,8 +124,8 @@ export default function ListingCard({
             ? "Request Exchange"
             : "Buy Now"}
         </button>
+
       </div>
     </div>
-    </Link>
   );
 }
